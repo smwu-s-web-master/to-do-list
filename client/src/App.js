@@ -12,13 +12,14 @@ import LandingPage from './components/views/LandingPage/LandingPage';
 import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import MyPage from './components/views/MyPage/MyPage';
+import NavBar from './components/views/NavBar/NavBar';
 import Auth from './hoc/auth'
 
 function App() {
   return (
     <Router>
     <div>
-
+      <NavBar />
       {/*
         A <Switch> looks through all its children <Route>
         elements and renders the first one whose path
@@ -31,6 +32,8 @@ function App() {
         <Route exact path="/login" component={Auth(LoginPage, false) } />
         <Route exact path="/register" component={Auth(RegisterPage, false)} />
         <Route exact path="/my" component={Auth(MyPage, true)} />
+        <Route exact path="/nav" component={Auth(NavBar, true)} />
+        
       </Switch>
     </div>
   </Router>
