@@ -9,7 +9,7 @@ import ImgUploadForm from '../../ImgUploadFrom/ImgUploadForm';
 function MyPage(props) {
 
     const currentUsername = localStorage.getItem('userName');
-    console.log(currentUsername);
+    //console.log(currentUsername);
 
     return (
         <div className="myPage_container">      
@@ -21,13 +21,16 @@ function MyPage(props) {
             <div className="myPage_item">달성률</div>
             <div className="myPage_item">목표</div>
             <div className="myPage_item">
-                <List />
+                <div>일상</div>
+                <List category="일상"/>
             </div>
             <div className="myPage_item">
-                <List />
+                <div>공부</div>
+                <List category="공부"/>
             </div>
             <div className="myPage_item">
-                <List />
+                <div>취미</div>
+                <List category="취미"/>
             </div>
         </div>
     )

@@ -11,10 +11,12 @@ class List extends Component {
   
   id = 0; // id 0으로 초기화.
 
+  
+
   state = {
     input: '',
     writer: { _id: currentUserId },
-    category: '일상',
+    category: '',
     todos: []
   }
 
@@ -26,17 +28,18 @@ class List extends Component {
 
     
     // private 바뀌는지 테스트
-    if(todos[0].private){
-      console.log('비공개');
-      //출력값 -> 비공개
-    } else{
-      console.log('공개');
-      //출력값 -> 공개
-    }
+    //if(todos[0].private){console.log('비공개');} else {console.log('공개');}
 
     //변화가 있는 todos만 보내는건지 state에 존재하는 todos 모두 보내는지?
-    axios.post('', {
-      input: '',
+
+    let body = {
+      input: input,
+      writer: writer,
+      category: category,
+      todos: todos
+    }
+    axios.post('', { body
+      /*input: '',
       writer: { _id: writer._id },
       category: category,
       todos: [{
@@ -45,7 +48,7 @@ class List extends Component {
         date: todos.date,
         chekced: todos.chekced,
         private: todos.private
-      }]
+      }]*/
     }).then(response => { 
       console.log(response);
       //화면 렌더링할때 저장된 list 그대로 출력.
@@ -74,12 +77,14 @@ class List extends Component {
         id: this.id++,
         text: input,
         date: date,
+        category: this.props.category,
         checked: false,
         private: true
       })
     }, function() {this.PostToServer()});
 
     //console.log(this.state);
+    console.log(this.props);
 
     //this.PostToServer();
   }
@@ -132,7 +137,7 @@ class List extends Component {
 
     const nextTodos = [...todos]; // 배열을 복사
 
-    // 기존의 값들을 복사하고, checked 값을 덮어쓰기
+    // 기존의 값들을 복사하고, private 값을 덮어쓰기
     nextTodos[index] = { 
       ...selected, 
       private: !selected.private
@@ -140,7 +145,9 @@ class List extends Component {
 
     this.setState({
       todos: nextTodos
-    }, function() {this.PostToServer()}); 
+    }, function() {this.PostToServer()});
+    
+    return todos.private;
   }
 
 

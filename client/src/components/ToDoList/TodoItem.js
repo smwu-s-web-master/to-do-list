@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import './TodoItem.css';
 
@@ -25,7 +26,7 @@ class TodoItem extends Component {
                 <div className="private" onClick={(e) => {
                     e.stopPropagation();
                     onPrivate(id)}
-                }>비공개</div>
+                }>{ /*request. ? "비공개" : "공개"*/}비공개</div>
             </div>
         );
     }
