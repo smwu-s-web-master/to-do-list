@@ -32,7 +32,7 @@ function App() {
         <Route exact path="/login" component={Auth(LoginPage, false) } />
         <Route exact path="/register" component={Auth(RegisterPage, false)} />
         <Route exact path="/my" component={Auth(MyPage, true)} />
-        <Route exact path="/nav" component={Auth(NavBar, true)} />
+        
         
       </Switch>
     </div>
