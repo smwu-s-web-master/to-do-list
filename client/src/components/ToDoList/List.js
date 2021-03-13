@@ -38,25 +38,16 @@ class List extends Component {
       category: category,
       todos: todos
     }
-    axios.post('', { body
-      /*input: '',
-      writer: { _id: writer._id },
-      category: category,
-      todos: [{
-        id: todos.id,
-        text: todos.text,
-        date: todos.date,
-        chekced: todos.chekced,
-        private: todos.private
-      }]*/
-    }).then(response => { 
+    axios.post('/api/list/saveList', { body })
+      .then(response => { 
       console.log(response);
       //화면 렌더링할때 저장된 list 그대로 출력.
     })
   }
 
   //GetFromServer = () => {
-
+  //'/api/list/getList'
+  //보내야하는 정보: writer, category, date(월, 일, 연도)
   //}
 
   handleChange = (e) => {
@@ -68,7 +59,10 @@ class List extends Component {
   // listitem 생성하는 함수.
   handleCreate = () => {
     const { input, todos } = this.state;
-    const date = new Date();
+    const date = new Date(); //월, 일, 연도
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const today = date.getDate();
 
     this.setState({
       input: '', // 인풋 비우고
@@ -76,7 +70,9 @@ class List extends Component {
       todos: todos.concat({
         id: this.id++,
         text: input,
-        date: date,
+        year: year,
+        month: month,
+        today: today,
         category: this.props.category,
         checked: false,
         private: true

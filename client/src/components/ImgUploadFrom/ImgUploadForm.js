@@ -9,9 +9,9 @@ function ImageUploader() {
       const img = new FormData();
       img.append("file", e.target.files[0]);
       axios
-        .post('', img)
+        .post('/api/users/uploadfiles', img)
         .then((res) => {
-          setImageUrl(res.data);
+          setImageUrl(res.data.filePath);
         })
         .catch((err) => {
           console.error(err);
@@ -24,7 +24,7 @@ function ImageUploader() {
       <input type="image" src={imageUrl} value=" " 
         style={{width: '80px', height: '80px', border: '2px solid'}} 
       />
-      <input type="file" accept="image/*"
+      <input type="file" accept="image/*" name="img"
         style={{fontSize: '10px'}} onChange={(e) => setFile(e)} 
       />
     </>
