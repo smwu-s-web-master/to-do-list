@@ -11,12 +11,10 @@ class List extends Component {
   
   id = 0; // id 0으로 초기화.
 
-  
-
   state = {
     input: '',
     writer: { _id: currentUserId },
-    category: '',
+    category: this.props.category,
     todos: []
   }
 
@@ -26,14 +24,11 @@ class List extends Component {
 
     console.log({input, writer, category, todos});
 
-    
     // private 바뀌는지 테스트
     //if(todos[0].private){console.log('비공개');} else {console.log('공개');}
 
     //변화가 있는 todos만 보내는건지 state에 존재하는 todos 모두 보내는지?
-
     let body = {
-      input: input,
       writer: writer,
       category: category,
       todos: todos
@@ -46,8 +41,9 @@ class List extends Component {
   }
 
   //GetFromServer = () => {
-  //'/api/list/getList'
-  //보내야하는 정보: writer, category, date(월, 일, 연도)
+    //화면 시작 & reload할 때 list 출력되도록하는 함수.
+    //'/api/list/getList'
+    //보내야하는 정보: writer, category, date(월, 일, 연도)
   //}
 
   handleChange = (e) => {
@@ -81,8 +77,6 @@ class List extends Component {
 
     //console.log(this.state);
     console.log(this.props);
-
-    //this.PostToServer();
   }
 
   handleKeyPress = (e) => {
@@ -119,7 +113,7 @@ class List extends Component {
   handleRemove = (id) => {
     const { todos } = this.state;
     this.setState({
-      todos: todos.filter(todo => todo.id !== id)
+      todos: todos.filter(todo => todo.id !== id),
     }, function() {this.PostToServer()});
   }
 
