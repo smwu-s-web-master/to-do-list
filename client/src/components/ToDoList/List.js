@@ -11,8 +11,6 @@ class List extends Component {
   
   id = 0; // id 0으로 초기화.
 
-  
-
   state = {
     input: '',
     writer: { _id: currentUserId },
