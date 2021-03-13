@@ -1,10 +1,9 @@
 import React, {useState} from 'react'
-//import Axios from 'axios'
+import Axios from 'axios'
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
-import { withRouter } from 'react-router-dom';
-import { Link } from "react-router-dom";
-import './LoginPage.css'
+import { withRouter, Link } from 'react-router-dom';
+import './LoginPage.css';
 
 function LoginPage(props) {
 
@@ -32,6 +31,8 @@ function LoginPage(props) {
         dispatch(loginUser(body))
             .then(response => {
                 if (response.payload.loginSuccess) {
+                    window.localStorage.setItem('userId', response.payload.userId);
+                    window.localStorage.setItem('userName', response.payload.name); //이거 맞는지 확인.
                     props.history.push('/')
                 } else {
                     alert('Error˝')
@@ -39,25 +40,25 @@ function LoginPage(props) {
             })
     }
 
+
     return (
-        <div className="App" style={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center'
-            , width: '100%', height: '100vh'
-        }}>
-  
-            <form style={{ fontSize:'80px', backgroundColor: '#AEC6CF', width:'100%'}}>todolist</form>
-               
-            <form className="top" style={{ display: 'flex', flexDirection: 'column' }}
-                onSubmit={onSubmitHandler}
-            >
+        <div className="container">
+            <div id="item1" >
+                TO-DO-LIST
+            </div>
+            <form className="item2" onSubmit={onSubmitHandler}>
                 <label>ID</label>
-                <input type="ID" value={ID} onChange={onIDHandler} />
+                <input type="text" value={ID} onChange={onIDHandler} />
+
                 <label>Password</label>
-                <input type="password" value={Password} onChange={onPasswordHandler} /><br />
-                <button type="submit">Login</button><br />
-                <button><Link to ='/register'>회원가입</Link></button>
+                <input type="password" value={Password} onChange={onPasswordHandler} />
+
+                <br />
+                <button type="submit">Login</button>
+
+                <br />
+                <button type="button"><Link to="/register">회원가입</Link></button>
             </form>
-            
         </div>
     )
 }
