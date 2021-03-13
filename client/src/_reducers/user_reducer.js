@@ -1,7 +1,7 @@
 import {
     LOGIN_USER,
     REGISTER_USER,
-    AUTH_USER
+    AUTH_USER,
 } from '../_actions/types';
 
 export default function (state = {}, action) {

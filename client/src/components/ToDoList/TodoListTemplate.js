@@ -4,9 +4,6 @@ import './TodoListTemplate.css';
 const TodoListTemplate = ({ form, children}) => {
   return (
     <main className="todo-list-template">
-      <div className="title">
-        일상
-      </div>
       <section className="form-wrapper">
         {form}
       </section>

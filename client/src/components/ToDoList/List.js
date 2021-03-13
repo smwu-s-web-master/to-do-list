@@ -5,15 +5,17 @@ import TodoItemList from './TodoItemList';
 import axios from 'axios';
 
 //localStorage로부터 login할때 저장한 userId 가져오기
-//const currentUserId = localStorage.getItem('userId');
+const currentUserId = localStorage.getItem('userId');
 
 class List extends Component {
   
   id = 0; // id 0으로 초기화.
- 
+
+  
+
   state = {
     input: '',
-    //writer: { _id: xx },
+    writer: { _id: currentUserId },
     category: '',
     todos: []
   }
@@ -32,28 +34,20 @@ class List extends Component {
 
     let body = {
       input: input,
-      //writer: writer,
+      writer: writer,
       category: category,
       todos: todos
     }
-    axios.post('', {
-      input: '',
-      //writer: { _id: writer._id },
-      category: category,
-      todos: [{
-        id: todos.id,
-        text: todos.text,
-        date: todos.date,
-        chekced: todos.chekced
-      }]
-    }).then(response => { 
+    axios.post('/api/list/saveList', { body })
+      .then(response => { 
       console.log(response);
       //화면 렌더링할때 저장된 list 그대로 출력.
     })
   }
 
   //GetFromServer = () => {
-
+  //'/api/list/getList'
+  //보내야하는 정보: writer, category, date(월, 일, 연도)
   //}
 
   handleChange = (e) => {
@@ -65,7 +59,10 @@ class List extends Component {
   // listitem 생성하는 함수.
   handleCreate = () => {
     const { input, todos } = this.state;
-    const date = new Date();
+    const date = new Date(); //월, 일, 연도
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const today = date.getDate();
 
     this.setState({
       input: '', // 인풋 비우고
@@ -73,9 +70,12 @@ class List extends Component {
       todos: todos.concat({
         id: this.id++,
         text: input,
-        date: date,
+        year: year,
+        month: month,
+        today: today,
         category: this.props.category,
         checked: false,
+        private: true
       })
     }, function() {this.PostToServer()});
 
@@ -123,6 +123,30 @@ class List extends Component {
     }, function() {this.PostToServer()});
   }
 
+  //아이템 공개 비공개 처리
+  handlePrivate = (id) => {
+    const { todos } = this.state;
+
+    // 파라미터로 받은 id 를 가지고 몇번째 아이템인지 찾습니다.
+    const index = todos.findIndex(todo => todo.id === id);
+    const selected = todos[index]; // 선택한 객체
+
+    const nextTodos = [...todos]; // 배열을 복사
+
+    // 기존의 값들을 복사하고, private 값을 덮어쓰기
+    nextTodos[index] = { 
+      ...selected, 
+      private: !selected.private
+    };
+
+    this.setState({
+      todos: nextTodos
+    }, function() {this.PostToServer()});
+    
+    return todos.private;
+  }
+
+
 
   render() {
     const { input, todos } = this.state;
@@ -132,6 +156,7 @@ class List extends Component {
       handleKeyPress,
       handleToggle,
       handleRemove,
+      handlePrivate
     } = this;
 
     return (
@@ -143,7 +168,7 @@ class List extends Component {
           onCreate={handleCreate}
         />
       )}>
-        <TodoItemList todos={todos} onToggle={handleToggle} onRemove={handleRemove} />
+        <TodoItemList todos={todos} onToggle={handleToggle} onRemove={handleRemove} onPrivate={handlePrivate}/>
       </TodoListTemplate>
     );
   }

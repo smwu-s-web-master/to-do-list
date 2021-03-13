@@ -31,9 +31,10 @@ function LoginPage(props) {
         dispatch(loginUser(body))
             .then(response => {
                 if (response.payload.loginSuccess) {
+                    // localStorage에 userId & name 저장해두기.
                     window.localStorage.setItem('userId', response.payload.userId);
                     window.localStorage.setItem('userName', response.payload.name); //이거 맞는지 확인.
-                    props.history.push('/')
+                    props.history.push('/main')
                 } else {
                     alert('Error˝')
                 }
