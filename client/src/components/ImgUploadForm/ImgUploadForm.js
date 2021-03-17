@@ -15,6 +15,7 @@ function ImageUploader() {
           header: { "content-type": "multipart/form-data" },
         })
         .then((res) => {
+          console.log(res);
           setImageUrl(res.data.filePath);
         })
         .catch((err) => {
@@ -25,22 +26,21 @@ function ImageUploader() {
 
   return (
     <>
-      {/*<form encType="multipart/form-data"> */}
-      <input
-        type="image"
-        src={imageUrl}
-        value=" "
-        style={{ width: "80px", height: "80px", border: "2px solid" }}
-      />
-      <input
-        type="file"
-        accept="image/*"
-        name="profile"
-        style={{ fontSize: "10px" }}
-        onChange={(e) => setFile(e)}
-      />
-
-      {/*</form> */}
+      <form encType="multipart/form-data" style={{display: "inline"}}>
+        <input
+          type="image"
+          src={imageUrl}
+          value=" "
+          style={{ width: "80px", height: "80px", border: "2px solid" }}
+        />
+        <input
+          type="file"
+          accept="image/*"
+          name="profile"
+          style={{ fontSize: "10px" }}
+          onChange={(e) => setFile(e)}
+        />
+      </form>
     </>
   );
 }

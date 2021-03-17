@@ -3,8 +3,8 @@ import TodoListTemplate from "./TodoListTemplate";
 import Form from "./Form";
 import TodoItemList from "./TodoItemList";
 import axios from "axios";
-
-//안녕!
+  //화면 시작될 때 todolist 정보 받아와서 출력.
+  
 //localStorage로부터 login할때 저장한 userId 가져오기
 const currentUserId = localStorage.getItem("userId");
 
@@ -17,6 +17,9 @@ class List extends Component {
     category: this.props.category,
     todos: [],
   };
+  
+
+  
 
   //server로 정보 전송하는 함수 - (새로 생성할 때 & 체크 & 지우기 & 공개 설정) 후에 동작
   PostToServer = () => {
@@ -26,16 +29,14 @@ class List extends Component {
 
     // private 바뀌는지 테스트
     //if(todos[0].private){console.log('비공개');} else {console.log('공개');}
-
-    //변화가 있는 todos만 보내는건지 state에 존재하는 todos 모두 보내는지?
-
     let body = {
       input: input,
       writer: writer,
       category: category,
       todos: todos,
     };
-    axios.post("/api/list/saveList", body).then((response) => {
+    axios.post("/api/list/saveList", body)
+    .then((response) => {
       console.log(response);
       //화면 렌더링할때 저장된 list 그대로 출력.
     });
@@ -79,11 +80,7 @@ class List extends Component {
         this.PostToServer();
       }
     );
-
-    //console.log(this.state);
     console.log(this.props);
-
-    //this.PostToServer();
   };
 
   handleKeyPress = (e) => {
@@ -158,10 +155,9 @@ class List extends Component {
       },
       function () {
         this.PostToServer();
+        // private 출력 바꾸기.
       }
     );
-
-    return todos.private;
   };
 
   render() {
