@@ -35,23 +35,23 @@ function MyPage(props) {
                 달력 {/*<Calender onChange={selectedDateHandler}/>*/}
             </div>
             <div className="myPage_item">
-                <AchievementRate year={selectedYear} month={selectedMonth} date={selectedDate}/>
+                <AchievementRate year={selectedYear} month={selectedMonth} today={selectedDate}/>
             </div>
             <div className="myPage_item">
                 이달의 목표
-                <List category="이달의 목표" year={selectedYear} month={selectedMonth} date={selectedDate}/>
+                <List category="이달의 목표" year={selectedYear} month={selectedMonth} today={selectedDate}/>
             </div>
             <div className="myPage_item">
                 <div>일상</div>
-                <List category="일상" year={selectedYear} month={selectedMonth} date={selectedDate}/>
+                <List category="일상" year={selectedYear} month={selectedMonth} today={selectedDate}/>
             </div>
             <div className="myPage_item">
                 <div>공부</div>
-                <List category="공부" year={selectedYear} month={selectedMonth} date={selectedDate}/>
+                <List category="공부" year={selectedYear} month={selectedMonth} today={selectedDate}/>
             </div>
             <div className="myPage_item">
                 <div>취미</div>
-                <List category="취미" year={selectedYear} month={selectedMonth} date={selectedDate}/>
+                <List category="취미" year={selectedYear} month={selectedMonth} today={selectedDate}/>
             </div>
         </div>
     )

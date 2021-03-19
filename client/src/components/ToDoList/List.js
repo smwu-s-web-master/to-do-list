@@ -17,28 +17,75 @@ class List extends Component {
     category: this.props.category,
     todos: [],
   };
-  
 
+  GetFromServer = () => {
+    const { writer, category } = this.state;
+
+    let body = {
+      writer: writer,
+      category: category,
+      year: this.props.year,
+      month: this.props.month,
+      today: this.props.today,
+    };
+    axios.post("/api/list/getList", body )
+    .then((response) => {
+      if(response.data.success){
+        /*for(let i=0; i< response.data.list.todos.length; i++){
+          this.setState({todos: todos.concat({
+            id: response.data.list.todos[i].id,
+            text: response.data.list.todos[i].text,
+            year: response.data.list.todos[i].year,
+            month: response.data.list.todos[i].month,
+            today: response.data.list.todos[i].today,
+            category: response.data.list.category,
+            checked: response.data.list.todos[i].checked,
+            private: response.data.list.todos[i].checked,
+          })});
+        }*/
+        this.id = response.data.count;
+      } else {
+        alert('list 정보를 가져오는 것을 실패 하였습니다.');
+      }
+    }); 
+      //화면 렌더링할때 저장된 list 그대로 출력.  
+  }
+  
+  componentDidMount(){
+    this.GetFromServer();
+  }
+  
+    
   
 
   //server로 정보 전송하는 함수 - (새로 생성할 때 & 체크 & 지우기 & 공개 설정) 후에 동작
   PostToServer = () => {
-    const { input, writer, category, todos } = this.state;
+    const { writer, category, todos } = this.state;
 
-    console.log({ input, writer, category, todos });
+    //console.log({writer, category, todos });
 
-    // private 바뀌는지 테스트
-    //if(todos[0].private){console.log('비공개');} else {console.log('공개');}
     let body = {
-      input: input,
       writer: writer,
       category: category,
       todos: todos,
     };
     axios.post("/api/list/saveList", body)
     .then((response) => {
-      console.log(response);
+        console.log(response.data/*.list.todos*/);
       //화면 렌더링할때 저장된 list 그대로 출력.
+      /*for(let i=0; i< response.data.list.todos.length; i++){
+                this.setState({todos: todos.concat({
+                  id: response.data.list.todos[i].id,
+                  text: response.data.list.todos[i].text,
+                  year: response.data.list.todos[i].year,
+                  month: response.data.list.todos[i].month,
+                  today: response.data.list.todos[i].today,
+                  category: response.data.list.category,
+                  checked: response.data.list.todos[i].checked,
+                  private: response.data.list.todos[i].checked,
+                  })
+                });
+              }*/
     });
   };
 
@@ -46,6 +93,7 @@ class List extends Component {
   //'/api/list/getList'
   //보내야하는 정보: writer, category, date(월, 일, 연도)
   //}
+  
 
   handleChange = (e) => {
     this.setState({
@@ -56,10 +104,6 @@ class List extends Component {
   // listitem 생성하는 함수.
   handleCreate = () => {
     const { input, todos } = this.state;
-    const date = new Date(); //월, 일, 연도
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const today = date.getDate();
 
     this.setState(
       {
@@ -68,19 +112,18 @@ class List extends Component {
         todos: todos.concat({
           id: this.id++,
           text: input,
-          year: year,
-          month: month,
-          today: today,
+          year: this.props.year,
+          month: this.props.month,
+          today: this.props.today,
           category: this.props.category,
           checked: false,
-          private: true,
+          privated: true,
         }),
       },
       function () {
         this.PostToServer();
       }
     );
-    console.log(this.props);
   };
 
   handleKeyPress = (e) => {
@@ -146,7 +189,7 @@ class List extends Component {
     // 기존의 값들을 복사하고, private 값을 덮어쓰기
     nextTodos[index] = {
       ...selected,
-      private: !selected.private,
+      privated: !selected.privated,
     };
 
     this.setState(
@@ -155,6 +198,8 @@ class List extends Component {
       },
       function () {
         this.PostToServer();
+
+        console.log(this.state.todos);
         // private 출력 바꾸기.
       }
     );

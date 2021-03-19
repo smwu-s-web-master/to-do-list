@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function ImageUploader() {
@@ -9,10 +9,10 @@ function ImageUploader() {
   const setFile = (e) => {
     if (e.target.files[0]) {
       const img = new FormData();
-      img.append("file", e.target.files[0]);
+      img.append("profile", e.target.files[0]);
       axios
         .post("/api/users/uploadfiles", img, {
-          header: { "content-type": "multipart/form-data" },
+          header: { "content-type": "multipart/form-data" }
         })
         .then((res) => {
           console.log(res);
@@ -21,8 +21,13 @@ function ImageUploader() {
         .catch((err) => {
           console.error(err);
         });
-    }
+    }   
   };
+
+  useEffect(() => {
+    console.log(imageUrl);
+    
+  }, [imageUrl])
 
   return (
     <>

@@ -4,12 +4,14 @@ import './TodoItem.css';
 
 class TodoItem extends Component {
 
-    //shouldComponentUpdate(nextProps, nextState) {
-    //    return this.props.checked !== nextProps.checked;
-    //  }
+    shouldComponentUpdate(nextProps, nextState) {
+        const checkedChange =  this.props.checked !== nextProps.checked;
+        const privatedChange = this.props.privated !== nextProps.privated;
+        return checkedChange || privatedChange;
+    }
     render() {
-        const { text, checked, id, onToggle, onRemove, onPrivate } = this.props;
-
+        const { text, checked, id, privated, onToggle, onRemove, onPrivate } = this.props;
+        console.log(privated);
         return (
             <div className="todo-item" onClick={() => onToggle(id)}>
                 {
@@ -26,7 +28,7 @@ class TodoItem extends Component {
                 <div className="private" onClick={(e) => {
                     e.stopPropagation();
                     onPrivate(id)}
-                }>{/*private ? 비공개 : 공개*/}비공개</div>
+                }>{privated===true ? "🔒" : "🔓"}</div>
             </div>
         );
     }

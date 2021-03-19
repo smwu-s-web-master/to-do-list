@@ -20,7 +20,7 @@ router.post("/saveList", (req, res) => {
         });
         return res.json({ success: true, list });
       }
-      return res.status(200).json({ success: true, info });
+      //return res.status(200).json({ success: true, info });
     }
   );
 });
