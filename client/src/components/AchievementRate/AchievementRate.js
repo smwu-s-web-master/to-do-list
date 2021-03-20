@@ -7,60 +7,62 @@ import './AchievementRate.css';
 // (checked 된 것 / 전체 list) * 100 = 달성률(%)
 //계산해서 화면에 출력.
 
-function AchievementRate({year, month, date}) {
-    const [monthRate, setMonthRate] = useState("0");
-    const [todayRate, setTodayRate] = useState("0");
-    const [allMonthList, setallMonthList] = useState("1");
-    const [allTodayList, setallTodayList] = useState("1");
-    const [checkedMonthList, setcheckedMonthList] = useState("0");
-    const [checkedTodayList, setcheckedTodayList] = useState("0");
+function AchievementRate({ year, month, today }) {
+    const [monthRate, setMonthRate] = useState(0);
+    const [todayRate, setTodayRate] = useState(0);
+    const [allMonthList, setallMonthList] = useState(1);
+    const [allTodayList, setallTodayList] = useState(1);
+    const [checkedMonthList, setcheckedMonthList] = useState(0);
+    const [checkedTodayList, setcheckedTodayList] = useState(0);
     const currentUserId = localStorage.getItem("userId");
     // myPage 리로드 시 / list 추가될때 / list 삭제될때 / checked 될때 / checked 해제될때
     // axios.post 
     // => moonthRate와 todayRate 다시 계산해서 화면에 출력해야함.
-    
+
     useEffect(() => {
-            calculateRate();
-        })   
+        calculateRate();
+    }, [])
 
     function calculateRate() {
         //server에 선택된 년,월,일 정보 보내기
-        let body={
+        let body = {
             writer: currentUserId,
-            year: {year},
-            month: {month},
-            date: {date}
+            year: year,
+            month: month,
+            today: today
         }
-        
-        axios.post('', {body})
-        .then((response) => {
-            //server로부터 list개수 Checked된 개수 받아와서 state값 변경.
-            setallMonthList(response.data.allMonthList);
-            setallTodayList(response.data.allTodayList);
-            setcheckedMonthList(response.data.checkedMonthList);
-            setcheckedTodayList(response.data.checkedTodayList);
-        })
+        console.log(body);
+
+        axios.post('/api/list/getSuccess', body)
+            .then((response) => {
+                //server로부터 list개수 Checked된 개수 받아와서 state값 변경.
+                console.log(response.data);
+                setallMonthList(response.data.monthTotal);
+                setallTodayList(response.data.todayTotal);
+                setcheckedMonthList(response.data.monthDone);
+                setcheckedTodayList(response.data.todayDone);
+            })
         //달성률 계산 & state 변경.
-        setMonthRate(checkedMonthList/allMonthList * 100);
-        setTodayRate(checkedTodayList/allTodayList * 100);
-    }  
-    
+            setMonthRate(Math.round((checkedMonthList / allMonthList) * 100));
+            setTodayRate(Math.round((checkedTodayList / allTodayList) * 100));       
+    }
+
     return (
         <>
-        <div>
-            {year}/{month}/{date}
-            <button onClick={calculateRate}>update</button>
-        </div>
-        <div className="achievement_form">
-           <div className="achievement_month">
-                <div className="rate_title">이달의 달성률</div>
-                <div className="rate">{monthRate}%</div>
+            <div>
+                {year}/{month}/{today}
+                <button onClick={calculateRate}>update</button>
             </div>
-            <div className="achievement_today">
-                <div className="rate_title">오늘의 달성률</div>
-                <div className="rate">{todayRate}%</div>
-            </div> 
-        </div>
+            <div className="achievement_form">
+                <div className="achievement_month">
+                    <div className="rate_title">이달의 달성률</div>
+                    <div className="rate">{monthRate}%</div>
+                </div>
+                <div className="achievement_today">
+                    <div className="rate_title">오늘의 달성률</div>
+                    <div className="rate">{todayRate}%</div>
+                </div>
+            </div>
         </>
     )
 }

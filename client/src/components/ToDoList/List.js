@@ -3,8 +3,8 @@ import TodoListTemplate from "./TodoListTemplate";
 import Form from "./Form";
 import TodoItemList from "./TodoItemList";
 import axios from "axios";
-  //화면 시작될 때 todolist 정보 받아와서 출력.
-  
+//화면 시작될 때 todolist 정보 받아와서 출력.
+
 //localStorage로부터 login할때 저장한 userId 가져오기
 const currentUserId = localStorage.getItem("userId");
 
@@ -28,35 +28,26 @@ class List extends Component {
       month: this.props.month,
       today: this.props.today,
     };
-    axios.post("/api/list/getList", body )
-    .then((response) => {
-      if(response.data.success){
-        /*for(let i=0; i< response.data.list.todos.length; i++){
-          this.setState({todos: todos.concat({
-            id: response.data.list.todos[i].id,
-            text: response.data.list.todos[i].text,
-            year: response.data.list.todos[i].year,
-            month: response.data.list.todos[i].month,
-            today: response.data.list.todos[i].today,
-            category: response.data.list.category,
-            checked: response.data.list.todos[i].checked,
-            private: response.data.list.todos[i].checked,
-          })});
+    axios.post("/api/list/getList", body)
+      .then((response) => {
+        if (response.data.success === true) {
+          for (let i = 0; i < response.data.list.todos.length; i++) {
+            this.setState({ todos: response.data.list.todos });
+          }
+          this.id = response.data.listCount;
+        } /*else {
+          alert('list 정보를 가져오는 것을 실패 하였습니다.');
         }*/
-        this.id = response.data.count;
-      } else {
-        alert('list 정보를 가져오는 것을 실패 하였습니다.');
-      }
-    }); 
-      //화면 렌더링할때 저장된 list 그대로 출력.  
+      });
+    //화면 렌더링할때 저장된 list 그대로 출력.  
   }
-  
-  componentDidMount(){
+
+  componentDidMount() {
     this.GetFromServer();
   }
-  
-    
-  
+
+
+
 
   //server로 정보 전송하는 함수 - (새로 생성할 때 & 체크 & 지우기 & 공개 설정) 후에 동작
   PostToServer = () => {
@@ -70,30 +61,10 @@ class List extends Component {
       todos: todos,
     };
     axios.post("/api/list/saveList", body)
-    .then((response) => {
-        console.log(response.data/*.list.todos*/);
-      //화면 렌더링할때 저장된 list 그대로 출력.
-      /*for(let i=0; i< response.data.list.todos.length; i++){
-                this.setState({todos: todos.concat({
-                  id: response.data.list.todos[i].id,
-                  text: response.data.list.todos[i].text,
-                  year: response.data.list.todos[i].year,
-                  month: response.data.list.todos[i].month,
-                  today: response.data.list.todos[i].today,
-                  category: response.data.list.category,
-                  checked: response.data.list.todos[i].checked,
-                  private: response.data.list.todos[i].checked,
-                  })
-                });
-              }*/
-    });
+      .then((response) => {
+        console.log(response.data);
+      });
   };
-
-  //GetFromServer = () => {
-  //'/api/list/getList'
-  //보내야하는 정보: writer, category, date(월, 일, 연도)
-  //}
-  
 
   handleChange = (e) => {
     this.setState({
@@ -199,7 +170,7 @@ class List extends Component {
       function () {
         this.PostToServer();
 
-        console.log(this.state.todos);
+        //console.log(this.state.todos);
         // private 출력 바꾸기.
       }
     );

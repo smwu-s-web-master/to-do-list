@@ -3,7 +3,7 @@ import axios from "axios";
 
 function ImageUploader() {
   const [imageUrl, setImageUrl] = useState(
-    "https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/436/8142f53e51d2ec31bc0fa4bec241a919_crop.jpeg"
+    "uploads/default.jpeg"
   );
 
   const setFile = (e) => {
@@ -21,20 +21,20 @@ function ImageUploader() {
         .catch((err) => {
           console.error(err);
         });
-    }   
+    }
   };
 
   useEffect(() => {
     console.log(imageUrl);
-    
+
   }, [imageUrl])
 
   return (
     <>
-      <form encType="multipart/form-data" style={{display: "inline"}}>
+      <form encType="multipart/form-data" style={{ display: "inline" }}>
         <input
           type="image"
-          src={imageUrl}
+          src={`http://localhost:4000/${imageUrl}`}
           value=" "
           style={{ width: "80px", height: "80px", border: "2px solid" }}
         />
