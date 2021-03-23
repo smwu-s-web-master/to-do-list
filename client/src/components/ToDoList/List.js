@@ -44,6 +44,7 @@ class List extends Component {
           for (let i = 0; i < response.data.listCount; i++) {
             this.setState( {todos: response.data.list.todos });
           }
+          //console.log(response.data.list.todos);
         } /*else {
           alert('list 정보를 가져오는 것을 실패 하였습니다.');
         }*/
