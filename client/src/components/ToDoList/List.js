@@ -41,13 +41,14 @@ class List extends Component {
     axios.post("/api/list/getList", body)
       .then((response) => {
         if (response.data.success === true) {
-          for (let i = 0; i < response.data.listCount; i++) {
-            this.setState( {todos: response.data.list.todos });
+          if(response.data.list === null){
+            return this.setState({todos: []});
           }
+          this.setState({todos: response.data.list.todos})
           //console.log(response.data.list.todos);
-        } /*else {
+        } else {
           alert('list 정보를 가져오는 것을 실패 하였습니다.');
-        }*/
+        }
       });
     //화면 렌더링할때 저장된 list 그대로 출력.  
   }
