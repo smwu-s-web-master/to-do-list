@@ -25,7 +25,23 @@ const userSchema = mongoose.Schema({
     required: true,
     minlength: 5,
   },
-  image: String,
+  life: {
+    type: Number,
+    default: 0,
+  },
+  study: {
+    type: Number,
+    default: 0,
+  },
+  hobby: {
+    type: Number,
+    default: 0,
+  },
+  mostList: String,
+  image: {
+    type: String,
+    default: "uploads/default.jpeg"
+  },
   token: {
     // 유효성 관리
     type: String,
