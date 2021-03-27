@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./MainList.css";
 
-function Movie({ userImg, userName, mainCategory }) {
+function MainList({ userImg, userName, mainCategory }) {
   return (
     <div className="list">
       <Link
@@ -38,4 +38,4 @@ function Movie({ userImg, userName, mainCategory }) {
 //   genres: PropTypes.arrayOf(PropTypes.string).isRequired
 // };
 
-export default Movie;
+export default MainList;
