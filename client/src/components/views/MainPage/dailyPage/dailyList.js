@@ -18,11 +18,11 @@ function dailyList({ userImg, userName, mainCategory }) {
         }}
       >
         <img src={`http://localhost:4000/${userImg}`} alt={userName} title={userName} />
-        <h3 className="list_user">{userName}</h3>
         <div className="list__data">
           <h2>주요 리스트</h2>
-          <h5 className="list_category">{mainCategory}</h5>
+          <h5 className="list_category">'{mainCategory}'</h5>
         </div>
+        <h3 className="list_user">{userName}</h3>
       </Link>
     </div>
   );

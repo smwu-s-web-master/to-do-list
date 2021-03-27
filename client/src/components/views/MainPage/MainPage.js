@@ -36,7 +36,7 @@ class MainPage extends React.Component {
             <div className="loader">
               <span className="loader__text">Loading...</span>
             </div>
-          ) : (
+          ) : ( 
             <div className="lists">
               {users.map(user => (
                 <MainList
