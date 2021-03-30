@@ -42,7 +42,6 @@ function App() {
         <Route exact path="/hobby" component={Auth(hobbyPage, true)} />
         <Route exact path="/study" component={Auth(studyPage, true)} />
         <Route exact path="/open" component={Auth(OpenPage, true)} />
-
       </Switch>
     </div>
   </Router>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
 import './NavBar.css';
 
@@ -33,7 +33,11 @@ function NavBar(props) {
                         로그아웃
                     </button>
                 </li>
-                <li className="mainMenu"><a href="http://localhost:3000/open"><b>!!!</b></a></li>
+                <li className="mainMenu">
+                    <a href="http://localhost:3000/open">
+                        <b>!!!</b>
+                    </a>
+                </li>
             </ul>
         </div>
     )
