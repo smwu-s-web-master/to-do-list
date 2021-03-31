@@ -6,7 +6,6 @@ router.post("/saveComment", (req, res) => {
   const comment = new Comment(req.body);
   comment.save((err, comment) => {
     if (err) return res.json({ success: false, err });
-
     Comment.find({ _id: comment._id })
       .populate("writer")
       .exec((err, result) => {
@@ -17,7 +16,7 @@ router.post("/saveComment", (req, res) => {
 });
 
 router.post("/getComments", (req, res) => {
-  Comment.find({ postId: req.body.postId }) // req.body.~ 여기 뭐 들어가는지 맞춰야 함
+  Comment.find({ userId: req.body.userId, category: req.body.category })
     .populate("writer")
     .exec((err, comments) => {
       if (err) return res.status(400).send(err);

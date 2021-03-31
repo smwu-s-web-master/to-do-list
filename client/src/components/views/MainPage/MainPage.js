@@ -7,7 +7,7 @@ class MainPage extends React.Component {
   state = {
     isLoading: true,
     category: "전체",
-    users: [],
+    users: []
   };
   getLists = async () => {
     const { category } = this.state;
@@ -17,10 +17,12 @@ class MainPage extends React.Component {
     };
     const response = await axios.post("api/main/getMain", body);
     console.log(response);
-    this.setState({
+
+    this.setState({ 
       users: response.data.user,
       isLoading: false,
     });
+
   };
   componentDidMount() {
     this.getLists();
@@ -30,17 +32,17 @@ class MainPage extends React.Component {
     const { isLoading, users } = this.state;
     return (
       <>
-        <section className="container">
+        <section className="container"> 
           {isLoading ? (
             <div className="loader">
               <span className="loader__text">Loading...</span>
             </div>
-          ) : (
+          ) : ( 
             <div className="lists">
-              {users.map((user) => (
+              {users.map(user => (
                 <MainList
-                  key={user.ID}
-                  id={user.ID}
+                  key={user._id}
+                  userId={user._id}
                   userImg={user.image}
                   userName={user.name}
                   mainCategory={user.mostList}

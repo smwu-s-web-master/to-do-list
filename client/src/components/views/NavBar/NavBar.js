@@ -1,5 +1,5 @@
 import React from 'react'
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
 import './NavBar.css';
 
@@ -17,6 +17,10 @@ function NavBar(props) {
             })
     }
 
+    const currentUsername = localStorage.getItem("userName");
+    const currentUserId = localStorage.getItem("userId");
+
+
     return (
         <div>
             <ul className="nav_container1">
@@ -33,7 +37,18 @@ function NavBar(props) {
                         로그아웃
                     </button>
                 </li>
-                <li className="mainMenu"><a href="http://localhost:3000/open"><b>!!!</b></a></li>
+                <li className="mainMenu">
+                    <Link to={{
+                        pathname: '/open',
+                         state:{
+                            userName: currentUsername,
+                            userId: currentUserId,
+                            mainCategory: "일상"
+                        }
+                    }}>
+                        <b>!!!</b>
+                    </Link>
+                </li>
             </ul>
         </div>
     )
