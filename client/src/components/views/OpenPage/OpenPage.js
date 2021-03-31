@@ -2,52 +2,54 @@ import React, { useEffect, useState } from 'react'
 import './OpenPage.css';
 import OpenTodoListTemplate from './OpenList/OpenTodoListTemplate';
 import OpenTodoItemList from './OpenList/OpenTodoItemList';
-//import Comment from './Comment/Comment';
+import Comment from './Comment/Comment';
 import axios from 'axios';
 import {withRouter} from "react-router-dom";
 
 
 function OpenPage(props) {
-    console.log(props);
 
-    const userName = props.location.state.userName;
-    const [category, setcategory] = useState("일상");
-    const [todos, settodos] = useState([{
-        //시험용 list
-        id: 0,
-        text: "안녕",
-        checked: true,
-        privated: false
-      }, {
-          id: 1,
-        text: "밥먹기",
-        checked: false,
-        privated: false
-      }]);
-    const [Comments, setComments] = useState([])
+    const [category, setcategory] = useState('');
+    const [userName, setuserName] = useState('');
+    const [userId, setuserId] = useState('');
+    const [todos, settodos] = useState([]);
+    const [CommentLists, setCommentLists] = useState([]);
+
+    const today = new Date();
+    const [selectedYear, setselectedYear] = useState(today.getFullYear());
+    const [selectedMonth, setselectedMonth] = useState(today.getMonth() + 1);
+    const [selectedDate, setselectedDate] = useState(today.getDate());
 
     useEffect(() => {
         if(props.location.state.mainCategory !== undefined)
             setcategory(props.location.state.mainCategory);
+        if(props.location.state.userName !== undefined)
+            setuserName(props.location.state.userName);
+        if(props.location.state.userId !== undefined)
+            setuserId(props.location.state.userId);
     })
     // mainPage에서 선택한 userName, mainCategory 서버로 전송 
     // 서버에서 해당 유저의 해당 category에 맞는 list, 댓글  반환. 
-    /*async function getOpenLists() {
+    async function getOpenLists() {
         
         let body = {
-          userName,
-          category 
+          userId,
+          category,
+          selectedYear,
+          selectedMonth,
+          selectedDate
         };
 
-        const response = await axios.post("api/main/getMain", body);
-        console.log(response);
-        settodos(response.data.todos);
+        const response = await axios.post("api/open/getList", body);
+        console.log(response.data.list);
+        settodos(response.data.list);
+        
         // 댓글도 가져오기.
 
         axios.post('api/comment/getComments', body)
         .then(response => {
-            if (response.data.success) {
-                setComments(response.data.comments)
+            if (response.data.success) {    
+                setCommentLists(response.data.comments);    
             } else {
                 alert("코멘트 정보를 가져오는 것을 실패 하였습니다.")
             }
@@ -57,10 +59,10 @@ function OpenPage(props) {
     useEffect(() => {
         //서버에 post해서 정보 새로 받아오기.
         getOpenLists();
-    }, [category])*/
+    }, [category])
 
     const refreshFunction = (newComment) => {
-        setComments((Comments.concat(newComment)))
+        setCommentLists((CommentLists.concat(newComment)))
     }
 
     const pickDaily = () => {
@@ -82,19 +84,20 @@ function OpenPage(props) {
                         {/*list 목록 출력된 공간*/}
                         <OpenTodoListTemplate>
                             <OpenTodoItemList
+                            
                             todos={todos}
                             />
                         </OpenTodoListTemplate>
                     </div>
                 </div>
                 <div className="comments">
-                    {/*댓글 영역
+                    {/*댓글 영역*/}
                     <Comment 
                         refreshFunction={refreshFunction} 
-                        commentLists={Comments} 
+                        CommentLists={CommentLists} 
                         userName={userName}
                         category={category}
-                    />*/}
+                    />
                 </div>
             </div>
             <div className="openPage_menu">

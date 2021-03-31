@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./MainList.css";
 
-function MainList({ userImg, userName, mainCategory }) {
+function MainList({ userImg, userId, userName, mainCategory }) {
 
   return (
     <div className="list">
@@ -10,6 +10,7 @@ function MainList({ userImg, userName, mainCategory }) {
         pathname: '/open',
         state: {
           userName,
+          userId,
           mainCategory
         }
       }}>

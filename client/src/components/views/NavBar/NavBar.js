@@ -17,6 +17,10 @@ function NavBar(props) {
             })
     }
 
+    const currentUsername = localStorage.getItem("userName");
+    const currentUserId = localStorage.getItem("userId");
+
+
     return (
         <div>
             <ul className="nav_container1">
@@ -34,9 +38,16 @@ function NavBar(props) {
                     </button>
                 </li>
                 <li className="mainMenu">
-                    <a href="http://localhost:3000/open">
+                    <Link to={{
+                        pathname: '/open',
+                         state:{
+                            userName: currentUsername,
+                            userId: currentUserId,
+                            mainCategory: "일상"
+                        }
+                    }}>
                         <b>!!!</b>
-                    </a>
+                    </Link>
                 </li>
             </ul>
         </div>

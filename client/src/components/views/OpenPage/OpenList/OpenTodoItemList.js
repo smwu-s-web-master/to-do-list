@@ -9,15 +9,16 @@ class OpenTodoItemList extends Component {
   
     render() {
       const { todos } = this.props;
+      console.log(todos);
   
       const todoList = todos.map(
         ({id, text, checked, privated}) => (
           <OpenTodoItem
+            key={id}
             id={id}
             text={text}
             checked={checked}
-            privated={privated}
-            key={id}
+            privated={privated}  
           />
         )
       );
