@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Tooltip, Icon } from 'antd';
+import { Tooltip} from 'antd';
+
 import Axios from 'axios';
 
 function LikeDislikes(props) {
@@ -10,10 +11,10 @@ function LikeDislikes(props) {
     const [DislikeAction, setDislikeAction] = useState(null)
     let variable = {};
 
-    if (props.video) {
-        variable = { userId: props.userId, category: props.category }
+    if (props.todos) {
+        variable = { userId: props.userId, category: props.category, postUserID: props.postUserId }
     } else {
-        variable = { commentId: props.commentId, userId: props.userName }
+        variable = { commentId: props.commentId, userId: props.userId }
     }
 
     
@@ -26,10 +27,10 @@ function LikeDislikes(props) {
                 console.log('getLikes',response.data)
 
                 if (response.data.success) {
-                    //How many likes does this video or comment have 
+                    // 얼마나 많은 좋아요를 받았는지. 
                     setLikes(response.data.likes.length)
 
-                    //if I already click this like button or not 
+                    // 내가 이미 그 좋아요를 눌렀는지 
                     response.data.likes.map(like => {
                         if (like.userId === props.userId) {
                             setLikeAction('liked')
@@ -44,10 +45,10 @@ function LikeDislikes(props) {
             .then(response => {
                 console.log('getDislike',response.data)
                 if (response.data.success) {
-                    //How many likes does this video or comment have 
+                    //얼마나 많은 싫어요를 받았는지 
                     setDislikes(response.data.dislikes.length)
 
-                    //if I already click this like button or not 
+                    //내가 이미 그 싫어요를 눌렀는지 
                     response.data.dislikes.map(dislike => {
                         if (dislike.userId === props.userId) {
                             setDislikeAction('disliked')
@@ -151,19 +152,17 @@ function LikeDislikes(props) {
         <React.Fragment>
             <span key="comment-basic-like">
                 <Tooltip title="Like">
-                    <Icon type="like"
-                        theme={LikeAction === 'liked' ? 'filled' : 'outlined'}
-                        onClick={onLike} />
+                    <span onClick={onLike}>
+                        {LikeAction === 'liked' ? '👍' : '👍🏻'}
+                    </span>
                 </Tooltip>
                 <span style={{ paddingLeft: '8px', cursor: 'auto' }}>{Likes}</span>
             </span>&nbsp;&nbsp;
             <span key="comment-basic-dislike">
                 <Tooltip title="Dislike">
-                    <Icon
-                        type="dislike"
-                        theme={DislikeAction === 'disliked' ? 'filled' : 'outlined'}
-                        onClick={onDisLike}
-                    />
+                    <span onClick={onDisLike}>
+                        {DislikeAction === 'disliked' ? '👎' : '👎🏻'}
+                    </span>
                 </Tooltip>
                 <span style={{ paddingLeft: '8px', cursor: 'auto' }}>{Dislikes}</span>
             </span>

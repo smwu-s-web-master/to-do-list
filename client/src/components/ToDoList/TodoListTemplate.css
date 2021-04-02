@@ -11,5 +11,7 @@
 }
 
 .todos-wrapper {
-  min-height: 5rem;
+  /*min-height: 5rem;*/
+  height: 350px;
+  overflow-y: scroll;
 }

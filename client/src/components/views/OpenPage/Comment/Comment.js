@@ -32,15 +32,16 @@ function Comments(props) {
             })
     }
     return (
-        <div>
+        <div style={{paddingBottom: '50px'}}>
             <br />
-            <p> replies</p>
-            <hr />
+            <p style={{width: '100%', textAlign:'center', fontSize: '20px'}}> Comment 💬 </p>
+            <hr style={{width: '80%'}}/>
             {/* Comment Lists  */}
             {console.log(props.CommentLists)}
             {props.CommentLists && props.CommentLists.map((comment, index) => (
                 (!comment.responseTo &&
                     <React.Fragment>
+                        <div style={{ width: '90%', marginLeft: '30px' }}>
                         <SingleComment 
                             comment={comment}
                             userId={props.userId} 
@@ -54,6 +55,7 @@ function Comments(props) {
                             parentCommentId={comment._id} 
                             refreshFunction={props.refreshFunction} 
                         />
+                        </div>
                     </React.Fragment>
                 )
             ))}

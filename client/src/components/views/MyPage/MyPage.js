@@ -70,6 +70,7 @@ function MyPage(props) {
           year={selectedYear}
           month={selectedMonth}
           today={selectedDate}
+          
         />
       </div>
       <div className="myPage_item">

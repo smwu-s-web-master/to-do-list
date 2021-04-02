@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import { Comment, Avatar, Button, Input } from 'antd';
 import axios from 'axios';
+import LikeDislikes from './LikeDislikes';
+
 const { TextArea } = Input;
 
 function SingleComment(props) {
+
     const currentUsername = localStorage.getItem("userName");
+    const currentUserID =  localStorage.getItem('userId')
     const [CommentValue, setCommentValue] = useState("");
     const [OpenReply, setOpenReply] = useState(false);
     const handleChange = (e) => {
@@ -36,7 +40,8 @@ function SingleComment(props) {
     }
 
     const actions = [
-        <span onClick={openReply} key="comment-basic-reply-to">Reply to </span>
+        <LikeDislikes userId={currentUserID} commentId={props.comment._id}/>
+        ,<span onClick={openReply} key="comment-basic-reply-to">Reply to </span>
     ]
     return (
         <div>

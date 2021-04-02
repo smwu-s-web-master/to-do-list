@@ -46,7 +46,6 @@ function LoginPage(props) {
 
   return (
     <div className="container">
-      <div id="item1">TO-DO-LIST</div>
       <form className="item2" onSubmit={onSubmitHandler}>
         <label>ID</label>
         <input type="text" value={ID} onChange={onIDHandler} />
