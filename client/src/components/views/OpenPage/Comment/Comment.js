@@ -6,9 +6,10 @@ import ReplyComment from './ReplyComment';
 const { TextArea } = Input;
 
 function Comments(props) {
-    const currentUsername = localStorage.getItem("userName");
+    
     const currentUserId = localStorage.getItem("userId");
     const [Comment, setComment] = useState("");
+   
     const handleChange = (e) => {
         setComment(e.currentTarget.value)
     }
@@ -16,7 +17,7 @@ function Comments(props) {
         e.preventDefault();
         const variables = {
             content: Comment,
-            writer:currentUserId,
+            writer: currentUserId,
             userId: props.userId,
             category: props.category
         }
@@ -31,6 +32,7 @@ function Comments(props) {
                 }
             })
     }
+
     return (
         <div style={{paddingBottom: '50px'}}>
             <br />

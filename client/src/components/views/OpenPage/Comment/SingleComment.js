@@ -7,7 +7,6 @@ const { TextArea } = Input;
 
 function SingleComment(props) {
 
-    const currentUsername = localStorage.getItem("userName");
     const currentUserID =  localStorage.getItem('userId')
     const [CommentValue, setCommentValue] = useState("");
     const [OpenReply, setOpenReply] = useState(false);
@@ -20,7 +19,7 @@ function SingleComment(props) {
     const onSubmit = (e) => {
         e.preventDefault();
         const variables = {
-            writer: currentUsername,
+            writer: currentUserID,
             userId: props.userId,
             category: props.category,
             responseTo: props.comment._id,
@@ -28,6 +27,7 @@ function SingleComment(props) {
         }
 
         axios.post('/api/comment/saveComment', variables)
+            
             .then(response => {
                 if (response.data.success) {
                     setCommentValue("")
@@ -36,6 +36,7 @@ function SingleComment(props) {
                 } else {
                     alert('Failed to save Comment')
                 }
+                console.log(response);
             })
     }
 

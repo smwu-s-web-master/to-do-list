@@ -17,11 +17,7 @@ function LikeDislikes(props) {
         variable = { commentId: props.commentId, userId: props.userId }
     }
 
-    
-
-
     useEffect(() => {
-
         Axios.post('/api/like/getLikes', variable)
             .then(response => {
                 console.log('getLikes',response.data)

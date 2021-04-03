@@ -27,6 +27,7 @@ function OpenPage(props) {
         setcategory(props.location.state.mainCategory);
         setuserName(props.location.state.userName);
         setuserId(props.location.state.userId);
+
     }, [props])
     
     useEffect(() => {
@@ -110,6 +111,7 @@ function OpenPage(props) {
                         refreshFunction={refreshFunction} 
                         CommentLists={CommentLists} 
                         userName={userName}
+                        userId={userId}
                         category={category}
                     />
                 </div>
