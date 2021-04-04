@@ -34,7 +34,7 @@ function NavBar(props) {
                 <li className="mainMenu"><a href="http://localhost:3000/my">My Page</a></li>
                 <li className="mainMenu">
                     <button onClick={onLogoutHandler}>
-                        로그아웃
+                        LogOut
                     </button>
                 </li>
                 <li className="mainMenu">
@@ -46,7 +46,7 @@ function NavBar(props) {
                             mainCategory: "일상"
                         }
                     }}>
-                        <b>!!!</b>
+                        <b>💬</b>
                     </Link>
                 </li>
             </ul>

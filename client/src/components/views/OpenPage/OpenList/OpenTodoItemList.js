@@ -13,6 +13,7 @@ class OpenTodoItemList extends Component {
   
       const todoList = todos.map(
         ({id, text, checked, privated}) => (
+          privated === false &&
           <OpenTodoItem
             key={id}
             id={id}
@@ -25,7 +26,7 @@ class OpenTodoItemList extends Component {
   
       return (
         <div>
-          {todoList}    
+          {todoList}
         </div>
       );
     }

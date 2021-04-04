@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { Comment, Avatar, Button, Input } from 'antd';
 import axios from 'axios';
+import LikeDislikes from './LikeDislikes';
+
 const { TextArea } = Input;
 
 function SingleComment(props) {
-    const currentUsername = localStorage.getItem("userName");
+
+    const currentUserID =  localStorage.getItem('userId')
     const [CommentValue, setCommentValue] = useState("");
     const [OpenReply, setOpenReply] = useState(false);
     const handleChange = (e) => {
@@ -16,7 +19,7 @@ function SingleComment(props) {
     const onSubmit = (e) => {
         e.preventDefault();
         const variables = {
-            writer: currentUsername,
+            writer: currentUserID,
             userId: props.userId,
             category: props.category,
             responseTo: props.comment._id,
@@ -24,6 +27,7 @@ function SingleComment(props) {
         }
 
         axios.post('/api/comment/saveComment', variables)
+            
             .then(response => {
                 if (response.data.success) {
                     setCommentValue("")
@@ -32,11 +36,13 @@ function SingleComment(props) {
                 } else {
                     alert('Failed to save Comment')
                 }
+                console.log(response);
             })
     }
 
     const actions = [
-        <span onClick={openReply} key="comment-basic-reply-to">Reply to </span>
+        <LikeDislikes userId={currentUserID} commentId={props.comment._id}/>
+        ,<span onClick={openReply} key="comment-basic-reply-to">Reply to </span>
     ]
     return (
         <div>

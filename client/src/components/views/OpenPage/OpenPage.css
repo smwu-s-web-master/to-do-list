@@ -53,11 +53,14 @@
   justify-self: flex-start;
   width: 80%;
   margin: 20px 0px;
-  font-size: 30px;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .print_lists #lists {
   width: 80%;
+  padding-bottom: 30px;
 }
 
 .comments {
@@ -66,4 +69,5 @@
   align-content: center;
   background-color: rgb(237, 245, 236);
   margin-top: 30px;
+  padding-bottom: 30px;
 }
