@@ -7,6 +7,13 @@ const dislikeSchema = mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
+    category: {
+      type: String,
+    },
+    postUserID: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
     commentId: {
       type: Schema.Types.ObjectId,
       ref: "Comment",
