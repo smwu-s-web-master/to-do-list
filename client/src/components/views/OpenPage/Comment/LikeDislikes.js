@@ -9,6 +9,7 @@ function LikeDislikes(props) {
     const [Dislikes, setDislikes] = useState(0)
     const [LikeAction, setLikeAction] = useState(null)
     const [DislikeAction, setDislikeAction] = useState(null)
+    const [likesArray, setlikesArray] = useState([])
     let variable = {};
 
     if (props.todos) {
@@ -20,7 +21,7 @@ function LikeDislikes(props) {
     useEffect(() => {
         Axios.post('/api/like/getLikes', variable)
             .then(response => {
-                console.log('getLikes',response.data)
+                console.log(response)
 
                 if (response.data.success) {
                     // 얼마나 많은 좋아요를 받았는지. 
@@ -35,11 +36,11 @@ function LikeDislikes(props) {
                 } else {
                     alert('Failed to get likes')
                 }
+
             })
 
         Axios.post('/api/like/getDislikes', variable)
             .then(response => {
-                console.log('getDislike',response.data)
                 if (response.data.success) {
                     //얼마나 많은 싫어요를 받았는지 
                     setDislikes(response.data.dislikes.length)
@@ -56,7 +57,6 @@ function LikeDislikes(props) {
             })
 
     }, [])
-
 
     const onLike = () => {
 
@@ -81,8 +81,7 @@ function LikeDislikes(props) {
                         alert('Failed to increase the like')
                     }
                 })
-
-
+                
         } else {
 
             Axios.post('/api/like/unLike', variable)
@@ -96,7 +95,6 @@ function LikeDislikes(props) {
                         alert('Failed to decrease the like')
                     }
                 })
-
         }
 
     }
@@ -137,11 +135,7 @@ function LikeDislikes(props) {
                         alert('Failed to increase dislike')
                     }
                 })
-
-
         }
-
-
     }
 
     return (
