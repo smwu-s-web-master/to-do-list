@@ -9,18 +9,31 @@ function Comments(props) {
     
     const currentUserId = localStorage.getItem("userId");
     const [Comment, setComment] = useState("");
+    const [year, setyear] = useState();
+    const [month, setmonth] = useState();
+    const [date, setdate] = useState();
    
     const handleChange = (e) => {
         setComment(e.currentTarget.value)
     }
     const onSubmit = (e) => {
         e.preventDefault();
+
+        const today = new Date();
+        setyear(today.getFullYear());
+        setmonth(today.getMonth() + 1);
+        setdate(today.getDate());
+
         const variables = {
             content: Comment,
             writer: currentUserId,
             userId: props.userId,
-            category: props.category
+            category: props.category,
+            year,
+            month,
+            date
         }
+        console.log(variables);
         axios.post('/api/comment/saveComment', variables)
             .then(response => {
                 if (response.data.success) {
@@ -48,7 +61,10 @@ function Comments(props) {
                             comment={comment}
                             userId={props.userId} 
                             category={props.category}
-                            refreshFunction={props.refreshFunction} 
+                            refreshFunction={props.refreshFunction}
+                            year={year}
+                            month={month}
+                            date={date} 
                         />
                         <ReplyComment 
                             CommentLists={props.CommentLists} 

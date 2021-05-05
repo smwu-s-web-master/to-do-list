@@ -5,7 +5,7 @@ import OpenTodoItemList from './OpenList/OpenTodoItemList';
 import Comment from './Comment/Comment';
 import axios from 'axios';
 import {withRouter} from "react-router-dom";
-import LikeDislikes from './Comment/LikeDislikes';
+//import LikeDislikes from './Comment/LikeDislikes';
 
 
 function OpenPage(props) {
@@ -64,8 +64,13 @@ function OpenPage(props) {
 
         axios.post('api/comment/getComments', body)
         .then(response => {
-            if (response.data.success) {    
-                setCommentLists(response.data.comments);    
+            if (response.data.success) {  
+                if(response.data.comments === null) {
+                    setCommentLists([]);
+                } else {
+                    setCommentLists(response.data.comments);
+                }  
+                    
             } else {
                 alert("코멘트 정보를 가져오는 것을 실패 하였습니다.")
             }
@@ -102,7 +107,12 @@ function OpenPage(props) {
                                 todos={todos}
                             />
                         </OpenTodoListTemplate>
-                        <LikeDislikes todos={todos} postUserId={userId} userId={localStorage.getItem('userId')} category={category}/>
+                        {/*<LikeDislikes 
+                            todos={todos} 
+                            postUserId={userId} 
+                            userId={localStorage.getItem('userId')} 
+                            category={category}
+                        />*/}
                     </div>
                 </div>
                 <div className="comments">

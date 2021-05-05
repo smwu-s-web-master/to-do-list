@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Comment, Avatar, Button, Input } from "antd";
 import axios from "axios";
-import LikeDislikes from "./LikeDislikes";
+//import LikeDislikes from "./LikeDislikes";
 
 const { TextArea } = Input;
 
@@ -17,12 +17,16 @@ function SingleComment(props) {
   };
   const onSubmit = (e) => {
     e.preventDefault();
+
     const variables = {
       writer: currentUserID,
       userId: props.userId,
       category: props.category,
       responseTo: props.comment._id,
       content: CommentValue,
+      year: props.year,
+      month: props.month,
+      date: props.date
     };
 
     axios
@@ -41,10 +45,9 @@ function SingleComment(props) {
   };
 
   const actions = [
-    <LikeDislikes userId={currentUserID} commentId={props.comment._id} />,
     <span onClick={openReply} key="comment-basic-reply-to">
       Reply to 
-    </span>,
+    </span>
   ];
   return (
     <div>

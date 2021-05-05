@@ -62,7 +62,7 @@ router.post("/unLike", (req, res) => {
   else {
     variable = { commentId: req.body.commentId, userId: req.body.userId }
   }
-  Like.findByIdAndDelete(variable).exec((err, result) => {
+  Like.findOneAndDelete(variable).exec((err, result) => {
     if (err) return res.status(400).json({ success: false, err });
     res.status(200).json({ success: true });
   });
@@ -100,7 +100,7 @@ router.post("/unDislike", (req, res) => {
     variable = { commentId: req.body.commentId, userId: req.body.userId }
   }
   
-  Dislike.findByIdAndDelete(variable).exec((err, result) => {
+  Dislike.findOneAndDelete(variable).exec((err, result) => {
     if (err) return res.status(400).json({ success: false, err });
     res.status(200).json({ success: true });
   });
