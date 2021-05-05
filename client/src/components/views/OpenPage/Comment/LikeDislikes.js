@@ -9,13 +9,14 @@ function LikeDislikes(props) {
     const [Dislikes, setDislikes] = useState(0)
     const [LikeAction, setLikeAction] = useState(null)
     const [DislikeAction, setDislikeAction] = useState(null)
-    const [likesArray, setlikesArray] = useState([])
+    const [category, setcategory] = useState(props.category);
+    const [commentId, setcommentId] = useState(props.commentId);
     let variable = {};
 
     if (props.todos) {
         variable = { userId: props.userId, category: props.category, postUserID: props.postUserId }
     } else {
-        variable = { commentId: props.commentId, userId: props.userId }
+        variable = { userId: props.userId, commentId: props.commentId }
     }
 
     useEffect(() => {
@@ -25,12 +26,15 @@ function LikeDislikes(props) {
 
                 if (response.data.success) {
                     // 얼마나 많은 좋아요를 받았는지. 
+
                     setLikes(response.data.likes.length)
 
                     // 내가 이미 그 좋아요를 눌렀는지 
                     response.data.likes.map(like => {
                         if (like.userId === props.userId) {
+                            
                             setLikeAction('liked')
+                            setcategory(like.category)
                         }
                     })
                 } else {
@@ -49,6 +53,7 @@ function LikeDislikes(props) {
                     response.data.dislikes.map(dislike => {
                         if (dislike.userId === props.userId) {
                             setDislikeAction('disliked')
+                            setcategory(dislike.category)
                         }
                     })
                 } else {
@@ -59,16 +64,16 @@ function LikeDislikes(props) {
     }, [])
 
     const onLike = () => {
-
+        
         if (LikeAction === null) {
 
             Axios.post('/api/like/upLike', variable)
                 .then(response => {
                     if (response.data.success) {
-
+                        console.log(response)                                   
                         setLikes(Likes + 1)
                         setLikeAction('liked')
-
+                            
                         //If dislike button is already clicked
 
                         if (DislikeAction !== null) {
@@ -76,18 +81,17 @@ function LikeDislikes(props) {
                             setDislikes(Dislikes - 1)
                         }
 
-
                     } else {
                         alert('Failed to increase the like')
                     }
                 })
                 
         } else {
-
+            //like이 클릭되어있는 경우.
             Axios.post('/api/like/unLike', variable)
                 .then(response => {
                     if (response.data.success) {
-
+                        console.log(response)
                         setLikes(Likes - 1)
                         setLikeAction(null)
 
@@ -100,10 +104,11 @@ function LikeDislikes(props) {
     }
 
 
+
     const onDisLike = () => {
-
+        
         if (DislikeAction !== null) {
-
+            //dislike이 클릭되어있는 경우.
             Axios.post('/api/like/unDisLike', variable)
                 .then(response => {
                     if (response.data.success) {
@@ -138,12 +143,13 @@ function LikeDislikes(props) {
         }
     }
 
+
     return (
         <React.Fragment>
             <span key="comment-basic-like">
                 <Tooltip title="Like">
                     <span onClick={onLike}>
-                        {LikeAction === 'liked' ? '👍' : '👍🏻'}
+                        {LikeAction === 'liked'? '👍' : '👍🏻'}
                     </span>
                 </Tooltip>
                 <span style={{ paddingLeft: '8px', cursor: 'auto' }}>{Likes}</span>
@@ -151,7 +157,7 @@ function LikeDislikes(props) {
             <span key="comment-basic-dislike">
                 <Tooltip title="Dislike">
                     <span onClick={onDisLike}>
-                        {DislikeAction === 'disliked' ? '👎' : '👎🏻'}
+                        {DislikeAction === 'disliked'? '👎' : '👎🏻'}
                     </span>
                 </Tooltip>
                 <span style={{ paddingLeft: '8px', cursor: 'auto' }}>{Dislikes}</span>

@@ -16,7 +16,13 @@ router.post("/saveComment", (req, res) => {
 });
 
 router.post("/getComments", (req, res) => {
-  Comment.find({ userId: req.body.userId, category: req.body.category })
+  Comment.find({
+    userId: req.body.userId,
+    category: req.body.category,
+    year: req.body.year,
+    month: req.body.month,
+    date: req.body.date,
+  })
     .populate("writer")
     .exec((err, comments) => {
       if (err) return res.status(400).send(err);
