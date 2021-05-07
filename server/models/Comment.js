@@ -19,9 +19,15 @@ const commentSchema = mongoose.Schema({
   content: {
     type: String,
   },
-  year: { type: Number, required: true },
-  month: { type: Number, required: true },
-  date: { type: Number, required: true },
+  year: {
+    type: Number,
+  },
+  month: {
+    type: Number,
+  },
+  date: {
+    type: Number,
+  },
 });
 
 const Comment = mongoose.model("Comment", commentSchema); // 스키마와 mongoDB 연결

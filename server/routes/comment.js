@@ -19,9 +19,9 @@ router.post("/getComments", (req, res) => {
   Comment.find({
     userId: req.body.userId,
     category: req.body.category,
-    year: req.body.year,
-    month: req.body.month,
-    date: req.body.date,
+    year: req.body.selectedYear,
+    month: req.body.selectedMonth,
+    date: req.body.selectedDate,
   })
     .populate("writer")
     .exec((err, comments) => {

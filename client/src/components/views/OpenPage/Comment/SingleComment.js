@@ -26,7 +26,7 @@ function SingleComment(props) {
       content: CommentValue,
       year: props.year,
       month: props.month,
-      date: props.date
+      date: props.date,
     };
 
     axios
@@ -40,14 +40,13 @@ function SingleComment(props) {
         } else {
           alert("Failed to save Comment");
         }
-        console.log(response);
       });
   };
 
   const actions = [
     <span onClick={openReply} key="comment-basic-reply-to">
       Reply to 
-    </span>
+    </span>,
   ];
   return (
     <div>
