@@ -30,7 +30,7 @@ function ImageUploader() {
 
   return (
     <>
-      <form encType="multipart/form-data" style={{ display: "inline" }}>
+      <form encType="multipart/form-data" style={{ /*display: "inline"*/ display:'inline-flex', flexDirection : 'column' }}>
         <input
           type="image"
           src={`http://localhost:4000/${imageUrl}`}

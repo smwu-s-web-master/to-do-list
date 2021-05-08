@@ -86,7 +86,7 @@ function OpenPage(props) {
       <div className="openPage_items">
         <div className="print_lists">
           <div id="userName">
-            <span style={{ fontSize: "27px" }}>{userName}'s To-Do-List</span>
+            <span id="first">{userName}'s To-Do-List</span>
             <sapn style={{ fontStyle: "italic" }}>category : {category}</sapn>
           </div>
           <div id="lists">

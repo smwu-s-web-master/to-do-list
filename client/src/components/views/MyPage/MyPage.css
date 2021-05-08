@@ -1,16 +1,17 @@
 .myPage_container {
   margin: 10px;
   padding-bottom: 20px;
-  border: 2px solid rgba(231, 241, 139, 0.431);
+  /*border: 2px solid rgba(231, 241, 139, 0.431);*/
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  background-color: rgb(174, 192, 243);
+  /*background-color: rgb(174, 192, 243);*/
   gap: 20px;
   /*flex-grow: 1;*/
 }
 
 .myPage_item {
-  background-color: rgb(243, 243, 235);
+  /*background-color: rgb(243, 243, 235);*/
+  /*background-color: rgb(243, 243, 241);*/
   text-align: center;
   font-size: 30px;
 }
@@ -19,6 +20,31 @@
   grid-column: 1 / 4;
   text-align: center;
   font-size: 70px; /* 비율에 비례하게 조정하고싶음.*/
+}
+.myPage_item > div {
+  padding: 10px;
+  font-weight: 600;
+}
+
+#achieve {
+  background-color: rgb(148, 152, 165);
+  color: white;
+}
+
+#goal {
+  border: 3px solid rgb(148, 152, 165);
+}
+
+#daily_name {
+  background-color: rgb(237, 245, 236);
+}
+
+#study_name {
+  background-color: beige;
+}
+
+#hobby_name {
+  background-color: rgba(220, 239, 255, 0.904);
 }
 
 body {

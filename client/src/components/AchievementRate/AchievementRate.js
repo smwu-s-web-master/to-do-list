@@ -50,8 +50,8 @@ function AchievementRate({ year, month, today }) {
 
   return (
     <>
-      <div>
-        {year}/{month}/{today}
+      <div className="date_and_update">
+        {year} / {month} / {today}
         <button onClick={calculateRate}>update</button>
       </div>
       <div className="achievement_form">

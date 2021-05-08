@@ -39,14 +39,14 @@ function LoginPage(props) {
 
         props.history.push("/main");
       } else {
-        alert("Error˝");
+        alert("Error");
       }
     });
   };
 
   return (
-    <div className="container">
-      <form className="item2" onSubmit={onSubmitHandler}>
+    <div className="container1">
+      <form className="item1" onSubmit={onSubmitHandler}>
         <label>ID</label>
         <input type="text" value={ID} onChange={onIDHandler} />
 
@@ -62,7 +62,7 @@ function LoginPage(props) {
         </button>
       </form>
     </div>
-  );
+  )
 }
 
 export default withRouter(LoginPage);

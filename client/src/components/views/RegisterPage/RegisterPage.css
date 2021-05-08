@@ -1,14 +1,14 @@
 .container2 {
-    background-color : #AEC6CF;
-    
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    width: 100%; 
-    height: 100vh;
+  background-color: #aec6cf;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
 }
 
-.item {
-    display: flex;
-    flex-direction: column;
+.item2 {
+  display: flex;
+  flex-direction: column;
 }

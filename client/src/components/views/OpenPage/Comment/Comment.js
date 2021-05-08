@@ -63,7 +63,7 @@ function Comments(props) {
           (comment, index) =>
             !comment.responseTo && (
               <React.Fragment>
-                <div style={{ width: "90%", marginLeft: "30px" }}>
+                <div style={{ width: "85%", marginLeft: "10%" }}>
                                           
                   <SingleComment
                     comment={comment}

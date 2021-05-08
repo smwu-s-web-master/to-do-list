@@ -55,7 +55,7 @@ function RegisterPage(props) {
 
     return (
         <div className="container2" >
-            <form className="item" onSubmit={onSubmitHandler} >
+            <form className="item2" onSubmit={onSubmitHandler} >
                 <label>ID</label>
                 <input type="text" value={ID} onChange={onIDHandler} />
 

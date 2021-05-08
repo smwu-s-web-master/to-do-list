@@ -32,21 +32,21 @@ function MyPage(props) {
         <span style={{ width: "20px", height: "20px" }} key="upload">
           <ImageUploader />
         </span>
-        <span> {currentUsername}의</span> to do list
+        <span> {currentUsername}의</span> To Do List
       </div>
       <div className="myPage_item">
-        달력
+        {/*달력*/}
         <Calendar onChange={setvalue} value={value} />
       </div>
-      <div className="myPage_item">
+      <div className="myPage_item" id="achieve">
         <AchievementRate
           year={selectedYear}
           month={selectedMonth}
           today={selectedDate}
         />
       </div>
-      <div className="myPage_item">
-        <div>이달의 목표</div>
+      <div className="myPage_item" id="goal">
+        <div id="goal_name"> 🏆 이달의 목표  </div>
         <List
           category="이달의 목표"
           year={selectedYear}
@@ -55,7 +55,7 @@ function MyPage(props) {
         />
       </div>
       <div className="myPage_item">
-        <div>일상</div>
+        <div id="daily_name">일상</div>
         <List
           category="일상"
           year={selectedYear}
@@ -64,7 +64,7 @@ function MyPage(props) {
         />
       </div>
       <div className="myPage_item">
-        <div>공부</div>
+        <div id="study_name">공부</div>
         <List
           category="공부"
           year={selectedYear}
@@ -74,7 +74,7 @@ function MyPage(props) {
         />
       </div>
       <div className="myPage_item">
-        <div>취미</div>
+        <div id="hobby_name">취미</div>
         <List
           category="취미"
           year={selectedYear}

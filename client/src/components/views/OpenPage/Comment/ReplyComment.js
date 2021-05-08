@@ -19,7 +19,7 @@ function ReplyComment(props) {
       <React.Fragment>
                         
         {comment.responseTo === parentCommentId && (
-          <div style={{ width: "80%", marginLeft: "70px" }}>
+          <div style={{ width: "100%", marginLeft: "10%" }}>
                                     
             <SingleComment
               comment={comment}
